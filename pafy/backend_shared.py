@@ -357,7 +357,7 @@ class BasePafy(object):
         if quality == "max":
         	r = max(streams, key=lambda x:self._sortvideokey(x, preftype=preftype, ftypestrict=ftypestrict))
         elif quality == "min":
-        	r = min(streams, key=lambda x:self._sortvideokey(x, preftype=preftype, ftypestrict=ftypestrict))
+            r = min(streams, key=lambda x:self._sortvideokey(x, preftype=preftype, ftypestrict=ftypestrict))
         else:
             return None
 

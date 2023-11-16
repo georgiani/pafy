@@ -268,7 +268,9 @@ def get_video_info(video_id, callback, newurl=None):
     #       just for this, or to use it for more. This was coppied from
     #       youtube-dl.
     embed_webpage = fetch_decode(g.urls['embed'])
-    sts = re.search(r'sts"\s*:\s*(\d+)', embed_webpage).group(1)
+    sts = re.search(r'sts"\s*:\s*(\d+)', embed_webpage)
+    if sts:
+        sts = sts.group(1)
 
     url = g.urls['vidinfo'] % (video_id, video_id, sts)
     url = newurl if newurl else url

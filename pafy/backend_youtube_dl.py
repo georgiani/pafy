@@ -47,7 +47,7 @@ class YtdlPafy(BasePafy):
         self._title = self._ydl_info['title']
         self._author = self._ydl_info['uploader']
         self._rating = self._ydl_info['average_rating']
-        self._length = self._ydl_info['duration']
+        # self._length = self._ydl_info['duration']
         self._viewcount = self._ydl_info['view_count']
         self._likes = self._ydl_info.get('like_count', 0)
         self._dislikes = self._ydl_info.get('dislike_count', 0)
@@ -103,13 +103,15 @@ class YtdlStream(BaseStream):
             self._mediatype = 'normal'
 
         self._threed = info.get('format_note') == '3D'
-        self._rawbitrate = info.get('abr', 0) * 1024
+
+        abr = info.get("abr") if info.get("abr") is not None else 0
+        self._rawbitrate = abr * 1024
 
         height = info.get('height') or 0
         width = info.get('width') or 0
         self._resolution = str(width) + 'x' + str(height)
         self._dimensions = width, height
-        self._bitrate = str(info.get('abr', 0)) + 'k'
+        self._bitrate = str(abr) + 'k'
         self._quality = self._bitrate if self._mediatype == 'audio' else self._resolution
 
         self._extension = info['ext']
